@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://targetnobug.github.io/</id>
     <title>MPLWade‘s Blog</title>
-    <updated>2019-08-26T17:40:00.955Z</updated>
+    <updated>2019-08-28T09:05:48.182Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://targetnobug.github.io/"/>
     <link rel="self" href="https://targetnobug.github.io//atom.xml"/>
@@ -98,6 +98,16 @@
 </ul>
 <h2 id="大厂">大厂</h2>
 <h2 id="每月一篇博客">每月一篇博客</h2>
+<h2 id="提升-不分先后">提升 (不分先后)</h2>
+<blockquote>
+<p>1.性能优化<br>
+2.多线程编程<br>
+3.网络原理网络编程<br>
+4.Runloop<br>
+5.Runtime<br>
+6.设计模式MVVM(KVO,Delegate,RAC)<br>
+7.想起来接着加。。。。。。</p>
+</blockquote>
 ]]></content>
     </entry>
 </feed>
