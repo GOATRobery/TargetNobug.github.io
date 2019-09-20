@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://targetnobug.github.io/</id>
     <title>MPLWade‘s Blog</title>
-    <updated>2019-09-06T03:05:41.961Z</updated>
+    <updated>2019-09-20T01:30:29.745Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://targetnobug.github.io/"/>
     <link rel="self" href="https://targetnobug.github.io//atom.xml"/>
@@ -66,7 +66,9 @@
 <p><strong>2. 安装包瘦身（8.07）</strong></p>
 <blockquote>
 <p>1&gt; 去无用img,去除无用的静态库,wait more.......<br>
-2&gt; 去除无用的类，没有用到的方法</p>
+去除无用img可使用<a href="!https://github.com/tinymind/LSUnusedResources">LSUnusedResources</a><br>
+2&gt; 去除无用的类，没有用到的方法<br>
+可用<a href="!https://github.com/dblock/fui">fui</a></p>
 </blockquote>
 </blockquote>
 <blockquote>
@@ -78,7 +80,8 @@
 <p>1.（方法交换，动态添加方法，添加属性，自动生成属性，字典转模型）解决Runtime相关的基本问题（至少面试可以回答出一些东西的）<br>
 2.（3篇性能优化：内存。runloop，界面）性能优化，总结出一篇自己多方查阅资料实践然后归纳整理出自己经验所得的文章<br>
 3.（2篇）runloop 不能再被问住了<br>
-4.（5篇）网络工作原理tcp协议、ssl协议、http协议、udp协议、socket原理（每个部分简书写一篇归纳所得文章）</p>
+4.（5篇）网络工作原理tcp协议、ssl协议、http协议、udp协议、socket原理（每个部分简书写一篇归纳所得文章）<br>
+5. atomic原子性操作，一定线程安全吗？为什么不安全？如何改善？好处是什么？</p>
 </blockquote>
 </blockquote>
 ]]></content>
