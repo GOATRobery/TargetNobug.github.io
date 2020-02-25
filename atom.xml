@@ -2,14 +2,14 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://targetnobug.github.io/</id>
     <title>MPLWade‘s Blog</title>
-    <updated>2019-09-20T01:30:29.745Z</updated>
+    <updated>2020-02-25T13:57:25.137Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://targetnobug.github.io/"/>
     <link rel="self" href="https://targetnobug.github.io//atom.xml"/>
     <subtitle>温故而知新，掌握那些你能够掌握的，剩余的交给上帝。。</subtitle>
     <logo>https://targetnobug.github.io//images/avatar.png</logo>
     <icon>https://targetnobug.github.io//favicon.ico</icon>
-    <rights>All rights reserved 2019, MPLWade‘s Blog</rights>
+    <rights>All rights reserved 2020, MPLWade‘s Blog</rights>
     <entry>
         <title type="html"><![CDATA[Hello My Visitor]]></title>
         <id>https://targetnobug.github.io//post/hello-gridea</id>
@@ -43,6 +43,22 @@
 <li>伟大的中国特色社会主义荣光下的电子竞技游戏（包括不仅限于LOL，NBA2K）</li>
 </ul>
 <p>😘 Enjoy~</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[项目小策略]]></title>
+        <id>https://targetnobug.github.io//post/xiang-mu-xiao-ce-lue</id>
+        <link href="https://targetnobug.github.io//post/xiang-mu-xiao-ce-lue">
+        </link>
+        <updated>2020-02-25T13:52:10.000Z</updated>
+        <content type="html"><![CDATA[<ol>
+<li>
+<p>场景：用户未登录情况下，两个或多个页面显示空白提示信息<br>
+解决：可设置统一访客试图，依据判断条件(比如是否登陆)进行是否增加访客视图覆盖放置的操作</p>
+<pre><code> 2. 场景：用户未登录情况下，部分模块不可显示
+ 		 解决：可通过访问Json文件的方式(请求后台数据返回Json结果)，增加或减少UITabBarController的子控制器数量</code></pre>
+</li>
+</ol>
 ]]></content>
     </entry>
     <entry>
