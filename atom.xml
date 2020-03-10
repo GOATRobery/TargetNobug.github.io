@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://targetnobug.github.io/</id>
     <title>MPLWade‘s Blog</title>
-    <updated>2020-03-10T19:53:42.340Z</updated>
+    <updated>2020-03-10T19:57:20.265Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://targetnobug.github.io/"/>
     <link rel="self" href="https://targetnobug.github.io//atom.xml"/>
@@ -46,11 +46,68 @@
 ]]></content>
     </entry>
     <entry>
+        <title type="html"><![CDATA[项目小策略]]></title>
+        <id>https://targetnobug.github.io//post/xiang-mu-xiao-ce-lue</id>
+        <link href="https://targetnobug.github.io//post/xiang-mu-xiao-ce-lue">
+        </link>
+        <updated>2020-02-25T13:52:10.000Z</updated>
+        <content type="html"><![CDATA[<ol>
+<li>
+<p>场景：用户未登录情况下，两个或多个页面显示空白提示信息<br>
+解决：可设置统一访客试图，依据判断条件(比如是否登陆)进行是否增加访客视图覆盖放置的操作</p>
+<pre><code> 2. 场景：用户未登录情况下，部分模块不可显示
+ 		 解决：可通过访问Json文件的方式(请求后台数据返回Json结果)，增加或减少UITabBarController的子控制器数量</code></pre>
+</li>
+</ol>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[每月思考问题]]></title>
+        <id>https://targetnobug.github.io//post/month_explorer</id>
+        <link href="https://targetnobug.github.io//post/month_explorer">
+        </link>
+        <updated>2019-08-07T08:45:06.000Z</updated>
+        <summary type="html"><![CDATA[<p>🐜 鶸眼前划过的疑问，大佬提出的问题，在这一部分记录，想出办法尽最大程度探索非单一解并寻找出最优解。。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>🐜 鶸眼前划过的疑问，大佬提出的问题，在这一部分记录，想出办法尽最大程度探索非单一解并寻找出最优解。。</p>
+<!-- more -->
+<h2 id="8月15日前">8月15日前：</h2>
+<blockquote>
+<p><strong>1. @property与成员变量的区别 （8.07）</strong></p>
+<blockquote>
+<p><a href="https://www.jianshu.com/p/b8807f891828https://www.jianshu.com/p/b8807f891828">简书讲解的特别好</a></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p><strong>2. 安装包瘦身（8.07）</strong></p>
+<blockquote>
+<p>1&gt; 去无用img,去除无用的静态库,wait more.......<br>
+去除无用img可使用<a href="!https://github.com/tinymind/LSUnusedResources">LSUnusedResources</a><br>
+2&gt; 去除无用的类，没有用到的方法<br>
+可用<a href="!https://github.com/dblock/fui">fui</a></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p><strong>3. 一次加载足够多数据，flutter下内存占用与UITableView的对比 (8.08)</strong></p>
+</blockquote>
+<blockquote>
+<p><strong>4. runtime（8.27-9.07）</strong></p>
+<blockquote>
+<p>1.（方法交换，动态添加方法，添加属性，自动生成属性，字典转模型）解决Runtime相关的基本问题（至少面试可以回答出一些东西的）<br>
+2.（3篇性能优化：内存。runloop，界面）性能优化，总结出一篇自己多方查阅资料实践然后归纳整理出自己经验所得的文章<br>
+3.（2篇）runloop 不能再被问住了<br>
+4.（5篇）网络工作原理tcp协议、ssl协议、http协议、udp协议、socket原理（每个部分简书写一篇归纳所得文章）<br>
+5. atomic原子性操作，一定线程安全吗？为什么不安全？如何改善？好处是什么？</p>
+</blockquote>
+</blockquote>
+]]></content>
+    </entry>
+    <entry>
         <title type="html"><![CDATA[响应者链条与圆形按钮]]></title>
         <id>https://targetnobug.github.io//post/xiang-ying-zhe-lian-tiao-yu-yuan-xing-an-niu</id>
         <link href="https://targetnobug.github.io//post/xiang-ying-zhe-lian-tiao-yu-yuan-xing-an-niu">
         </link>
-        <updated>2020-03-10T19:51:08.000Z</updated>
+        <updated>2017-08-24T19:51:08.000Z</updated>
         <content type="html"><![CDATA[<h1 id="响应者链条">响应者链条</h1>
 <h2 id="1问题描述">1.问题描述</h2>
 <h3 id="1-a和c是普通的view-b是一个绑定事件的按钮a添加了点击手势-此时点击c响应a的tap手势事件还是b的按钮点击事件">1. A和C是普通的view, B是一个绑定事件的按钮，A添加了点击手势。 此时点击C，响应A的tap手势事件？还是B的按钮点击事件？</h3>
@@ -187,63 +244,6 @@ UITouchPhaseCancelled（触摸取消）</p>
     NSLog(@&quot;++++ Valid Touch Events ++++&quot;);
 } 
 </code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[项目小策略]]></title>
-        <id>https://targetnobug.github.io//post/xiang-mu-xiao-ce-lue</id>
-        <link href="https://targetnobug.github.io//post/xiang-mu-xiao-ce-lue">
-        </link>
-        <updated>2020-02-25T13:52:10.000Z</updated>
-        <content type="html"><![CDATA[<ol>
-<li>
-<p>场景：用户未登录情况下，两个或多个页面显示空白提示信息<br>
-解决：可设置统一访客试图，依据判断条件(比如是否登陆)进行是否增加访客视图覆盖放置的操作</p>
-<pre><code> 2. 场景：用户未登录情况下，部分模块不可显示
- 		 解决：可通过访问Json文件的方式(请求后台数据返回Json结果)，增加或减少UITabBarController的子控制器数量</code></pre>
-</li>
-</ol>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[每月思考问题]]></title>
-        <id>https://targetnobug.github.io//post/month_explorer</id>
-        <link href="https://targetnobug.github.io//post/month_explorer">
-        </link>
-        <updated>2019-08-07T08:45:06.000Z</updated>
-        <summary type="html"><![CDATA[<p>🐜 鶸眼前划过的疑问，大佬提出的问题，在这一部分记录，想出办法尽最大程度探索非单一解并寻找出最优解。。</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>🐜 鶸眼前划过的疑问，大佬提出的问题，在这一部分记录，想出办法尽最大程度探索非单一解并寻找出最优解。。</p>
-<!-- more -->
-<h2 id="8月15日前">8月15日前：</h2>
-<blockquote>
-<p><strong>1. @property与成员变量的区别 （8.07）</strong></p>
-<blockquote>
-<p><a href="https://www.jianshu.com/p/b8807f891828https://www.jianshu.com/p/b8807f891828">简书讲解的特别好</a></p>
-</blockquote>
-</blockquote>
-<blockquote>
-<p><strong>2. 安装包瘦身（8.07）</strong></p>
-<blockquote>
-<p>1&gt; 去无用img,去除无用的静态库,wait more.......<br>
-去除无用img可使用<a href="!https://github.com/tinymind/LSUnusedResources">LSUnusedResources</a><br>
-2&gt; 去除无用的类，没有用到的方法<br>
-可用<a href="!https://github.com/dblock/fui">fui</a></p>
-</blockquote>
-</blockquote>
-<blockquote>
-<p><strong>3. 一次加载足够多数据，flutter下内存占用与UITableView的对比 (8.08)</strong></p>
-</blockquote>
-<blockquote>
-<p><strong>4. runtime（8.27-9.07）</strong></p>
-<blockquote>
-<p>1.（方法交换，动态添加方法，添加属性，自动生成属性，字典转模型）解决Runtime相关的基本问题（至少面试可以回答出一些东西的）<br>
-2.（3篇性能优化：内存。runloop，界面）性能优化，总结出一篇自己多方查阅资料实践然后归纳整理出自己经验所得的文章<br>
-3.（2篇）runloop 不能再被问住了<br>
-4.（5篇）网络工作原理tcp协议、ssl协议、http协议、udp协议、socket原理（每个部分简书写一篇归纳所得文章）<br>
-5. atomic原子性操作，一定线程安全吗？为什么不安全？如何改善？好处是什么？</p>
-</blockquote>
-</blockquote>
 ]]></content>
     </entry>
     <entry>
