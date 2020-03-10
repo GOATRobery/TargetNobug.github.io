@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://targetnobug.github.io/</id>
     <title>MPLWade‘s Blog</title>
-    <updated>2020-03-10T19:57:20.265Z</updated>
+    <updated>2020-03-10T21:00:27.207Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://targetnobug.github.io/"/>
     <link rel="self" href="https://targetnobug.github.io//atom.xml"/>
@@ -108,7 +108,7 @@
         <link href="https://targetnobug.github.io//post/xiang-ying-zhe-lian-tiao-yu-yuan-xing-an-niu">
         </link>
         <updated>2017-08-24T19:51:08.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="响应者链条">响应者链条</h1>
+        <content type="html"><![CDATA[<h1 id="一-事件传递过程">一 . “事件传递过程”</h1>
 <h2 id="1问题描述">1.问题描述</h2>
 <h3 id="1-a和c是普通的view-b是一个绑定事件的按钮a添加了点击手势-此时点击c响应a的tap手势事件还是b的按钮点击事件">1. A和C是普通的view, B是一个绑定事件的按钮，A添加了点击手势。 此时点击C，响应A的tap手势事件？还是B的按钮点击事件？</h3>
 <p><img src="https://upload-images.jianshu.io/upload_images/4395241-72327d4221a72fc4.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="视图布局示例"></p>
@@ -219,30 +219,46 @@ UITouchPhaseCancelled（触摸取消）</p>
 - (BOOL)pointInside:(CGPoint)point withEvent:(nullable UIEvent *)event;
 
 </code></pre>
-<h1 id="按钮点击-圆形uibutton圆形点击范围">按钮点击--圆形UIButton圆形点击范围</h1>
-<ul>
-<li>判定触摸点是否在圆形范围之内</li>
-</ul>
-<blockquote>
-<p>本例所实现的判定机制采用的是基本的几何运算，也就是检查触摸点是不是在圆形的半径之内</p>
-</blockquote>
-<pre><code>- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {
-    CGPoint pt;
-    float halfSide = 50.0f / 2.0f; //50.0f为UIButton的宽*高
-    
-    pt.x = (point.x - halfSide) / halfSide;
-    pt.y = (point.y - halfSide) / halfSide;
-    
-    float xsquared = pt.x * pt.x;
-    float ysquared = pt.y * pt.y;
-    
-    if((xsquared + ysquared) &lt; 1.0) return YES;
-    return NO;
+<hr>
+<h1 id="二-hittest方法底层实现">二. “hitTest:方法底层实现”</h1>
+<pre><code>/**
+ * 作用: 寻找最适合响应的View
+ * 何时调用: 当一个事件传递给当前View的时候，hitTest:方法就会调用
+ * 返回值是啥: 返回的是哪个View，这个View就是最合适响应的View（随后该View就会调用它的touch方法）
+ */
+- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
+    // 1.判断自己能否接收事件
+    if (self.userInteractionEnabled == NO || self.hidden == YES || self.alpha &lt;= 0.01) {
+        return nil;
+    }
+    // 2.判断点是不是在自己身上
+    if (![self pointInside:point withEvent:event]) {
+        return nil;
+    }
+    // 3.遍历在子控件，调用子控件的hitTest
+    int count = (int)self.subviews.count;
+    for (int i = count - 1; i &gt;= 0; i--) { //取子控件规则，又后添加的向前筛选
+        UIView *childView = self.subviews[i];
+        // 转换成自控件身上的坐标系的点
+        CGPoint childViewPoint = [self convertPoint:point toView:childView];
+        UIView *fitView = [childView hitTest:childViewPoint withEvent:event];
+        if (fitView){ // 子控件上有合适的View则返回该View
+            return childView;
+        }
+    }
+    // 没有找到合适的子控件，自己则为合适的响应视图
+    return self;
 }
 
-- (void)touchesBegan:(NSSet&lt;UITouch *&gt; *)touches withEvent:(UIEvent *)event {
-    NSLog(@&quot;++++ Valid Touch Events ++++&quot;);
-} 
+/**
+ *  作用：判断当前点在不在它调用View上（谁调用了pointInside，这个View就是谁）
+ *  何时调用: hitTest:方法内，系统自动就会调用
+ *  注意点: point点必须得和它的方法的调用者在同一坐标系里边儿（就是说View1调用了，就得是View1的坐标系）
+ */
+- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {
+    BOOL isMe = [super pointInside:point withEvent:event];
+    return isMe;
+}
 </code></pre>
 ]]></content>
     </entry>

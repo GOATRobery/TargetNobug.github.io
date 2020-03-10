@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>响应者链条与圆形按钮 | MPLWade‘s Blog</title>
 <meta name="description" content="温故而知新，掌握那些你能够掌握的，剩余的交给上帝。。" />
-<link rel="shortcut icon" href="https://targetnobug.github.io//favicon.ico?v=1583870237402">
+<link rel="shortcut icon" href="https://targetnobug.github.io//favicon.ico?v=1583874016659">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://targetnobug.github.io//styles/main.css">
@@ -20,7 +20,7 @@
       <div class="main-content">
         <div class="site-header">
   <a href="https://targetnobug.github.io/">
-  <img class="avatar" src="https://targetnobug.github.io//images/avatar.png?v=1583870237402" alt="">
+  <img class="avatar" src="https://targetnobug.github.io//images/avatar.png?v=1583874016659" alt="">
   </a>
   <h1 class="site-title">
     MPLWade‘s Blog
@@ -91,7 +91,7 @@
             
             <div class="post-content-wrapper">
               <div class="post-content">
-                <h1 id="响应者链条">响应者链条</h1>
+                <h1 id="一-事件传递过程">一 . “事件传递过程”</h1>
 <h2 id="1问题描述">1.问题描述</h2>
 <h3 id="1-a和c是普通的view-b是一个绑定事件的按钮a添加了点击手势-此时点击c响应a的tap手势事件还是b的按钮点击事件">1. A和C是普通的view, B是一个绑定事件的按钮，A添加了点击手势。 此时点击C，响应A的tap手势事件？还是B的按钮点击事件？</h3>
 <p><img src="https://upload-images.jianshu.io/upload_images/4395241-72327d4221a72fc4.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="视图布局示例"></p>
@@ -202,36 +202,52 @@ UITouchPhaseCancelled（触摸取消）</p>
 - (BOOL)pointInside:(CGPoint)point withEvent:(nullable UIEvent *)event;
 
 </code></pre>
-<h1 id="按钮点击-圆形uibutton圆形点击范围">按钮点击--圆形UIButton圆形点击范围</h1>
-<ul>
-<li>判定触摸点是否在圆形范围之内</li>
-</ul>
-<blockquote>
-<p>本例所实现的判定机制采用的是基本的几何运算，也就是检查触摸点是不是在圆形的半径之内</p>
-</blockquote>
-<pre><code>- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {
-    CGPoint pt;
-    float halfSide = 50.0f / 2.0f; //50.0f为UIButton的宽*高
-    
-    pt.x = (point.x - halfSide) / halfSide;
-    pt.y = (point.y - halfSide) / halfSide;
-    
-    float xsquared = pt.x * pt.x;
-    float ysquared = pt.y * pt.y;
-    
-    if((xsquared + ysquared) &lt; 1.0) return YES;
-    return NO;
+<hr>
+<h1 id="二-hittest方法底层实现">二. “hitTest:方法底层实现”</h1>
+<pre><code>/**
+ * 作用: 寻找最适合响应的View
+ * 何时调用: 当一个事件传递给当前View的时候，hitTest:方法就会调用
+ * 返回值是啥: 返回的是哪个View，这个View就是最合适响应的View（随后该View就会调用它的touch方法）
+ */
+- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
+    // 1.判断自己能否接收事件
+    if (self.userInteractionEnabled == NO || self.hidden == YES || self.alpha &lt;= 0.01) {
+        return nil;
+    }
+    // 2.判断点是不是在自己身上
+    if (![self pointInside:point withEvent:event]) {
+        return nil;
+    }
+    // 3.遍历在子控件，调用子控件的hitTest
+    int count = (int)self.subviews.count;
+    for (int i = count - 1; i &gt;= 0; i--) { //取子控件规则，又后添加的向前筛选
+        UIView *childView = self.subviews[i];
+        // 转换成自控件身上的坐标系的点
+        CGPoint childViewPoint = [self convertPoint:point toView:childView];
+        UIView *fitView = [childView hitTest:childViewPoint withEvent:event];
+        if (fitView){ // 子控件上有合适的View则返回该View
+            return childView;
+        }
+    }
+    // 没有找到合适的子控件，自己则为合适的响应视图
+    return self;
 }
 
-- (void)touchesBegan:(NSSet&lt;UITouch *&gt; *)touches withEvent:(UIEvent *)event {
-    NSLog(@&quot;++++ Valid Touch Events ++++&quot;);
-} 
+/**
+ *  作用：判断当前点在不在它调用View上（谁调用了pointInside，这个View就是谁）
+ *  何时调用: hitTest:方法内，系统自动就会调用
+ *  注意点: point点必须得和它的方法的调用者在同一坐标系里边儿（就是说View1调用了，就得是View1的坐标系）
+ */
+- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {
+    BOOL isMe = [super pointInside:point withEvent:event];
+    return isMe;
+}
 </code></pre>
 
               </div>
               <div class="toc-container">
                 <ul class="markdownIt-TOC">
-<li><a href="#%E5%93%8D%E5%BA%94%E8%80%85%E9%93%BE%E6%9D%A1">响应者链条</a>
+<li><a href="#%E4%B8%80-%E4%BA%8B%E4%BB%B6%E4%BC%A0%E9%80%92%E8%BF%87%E7%A8%8B">一 . “事件传递过程”</a>
 <ul>
 <li><a href="#1%E9%97%AE%E9%A2%98%E6%8F%8F%E8%BF%B0">1.问题描述</a>
 <ul>
@@ -254,7 +270,7 @@ UITouchPhaseCancelled（触摸取消）</p>
 </li>
 </ul>
 </li>
-<li><a href="#%E6%8C%89%E9%92%AE%E7%82%B9%E5%87%BB-%E5%9C%86%E5%BD%A2uibutton%E5%9C%86%E5%BD%A2%E7%82%B9%E5%87%BB%E8%8C%83%E5%9B%B4">按钮点击--圆形UIButton圆形点击范围</a></li>
+<li><a href="#%E4%BA%8C-hittest%E6%96%B9%E6%B3%95%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0">二. “hitTest:方法底层实现”</a></li>
 </ul>
 
               </div>
