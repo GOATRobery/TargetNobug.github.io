@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>响应者链条与圆形按钮 | MPLWade‘s Blog</title>
 <meta name="description" content="温故而知新，总有收获。。" />
-<link rel="shortcut icon" href="https://targetnobug.github.io//favicon.ico?v=1584044364413">
+<link rel="shortcut icon" href="https://targetnobug.github.io//favicon.ico?v=1584044801442">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://targetnobug.github.io//styles/main.css">
@@ -20,7 +20,7 @@
       <div class="main-content">
         <div class="site-header">
   <a href="https://targetnobug.github.io/">
-  <img class="avatar" src="https://targetnobug.github.io//images/avatar.png?v=1584044364413" alt="">
+  <img class="avatar" src="https://targetnobug.github.io//images/avatar.png?v=1584044801442" alt="">
   </a>
   <h1 class="site-title">
     MPLWade‘s Blog
@@ -102,7 +102,6 @@
 <li>禁用C视图用户交互时，此次响应的是B视图的按钮点击事件</li>
 </ol>
 </blockquote>
-<hr>
 <p><strong>但是为啥？</strong></p>
 <h2 id="3触摸事件">3.触摸事件</h2>
 <blockquote>
@@ -202,7 +201,6 @@ UITouchPhaseCancelled（触摸取消）</p>
 - (BOOL)pointInside:(CGPoint)point withEvent:(nullable UIEvent *)event;
 
 </code></pre>
-<hr>
 <h1 id="二-hittest方法底层实现">二. “hitTest:方法底层实现”</h1>
 <pre><code>/**
  * 作用: 寻找最适合响应的View
@@ -243,6 +241,31 @@ UITouchPhaseCancelled（触摸取消）</p>
     return isMe;
 }
 </code></pre>
+<h1 id="三-圆形按钮">三. 圆形按钮</h1>
+<ul>
+<li>判定触摸点是否在圆形范围之内</li>
+</ul>
+<blockquote>
+<p>本例所实现的判定机制采用的是基本的几何运算，也就是检查触摸点是不是在圆形的半径之内</p>
+</blockquote>
+<pre><code>- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {
+    CGPoint pt;
+    float halfSide = 50.0f / 2.0f; //50.0f为UIButton的宽*高
+    
+    pt.x = (point.x - halfSide) / halfSide;
+    pt.y = (point.y - halfSide) / halfSide;
+    
+    float xsquared = pt.x * pt.x;
+    float ysquared = pt.y * pt.y;
+    
+    if((xsquared + ysquared) &lt; 1.0) return YES;
+    return NO;
+}
+
+- (void)touchesBegan:(NSSet&lt;UITouch *&gt; *)touches withEvent:(UIEvent *)event {
+    NSLog(@&quot;++++ Valid Touch Events ++++&quot;);
+} 
+</code></pre>
 
               </div>
               <div class="toc-container">
@@ -271,6 +294,7 @@ UITouchPhaseCancelled（触摸取消）</p>
 </ul>
 </li>
 <li><a href="#%E4%BA%8C-hittest%E6%96%B9%E6%B3%95%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0">二. “hitTest:方法底层实现”</a></li>
+<li><a href="#%E4%B8%89-%E5%9C%86%E5%BD%A2%E6%8C%89%E9%92%AE">三. 圆形按钮</a></li>
 </ul>
 
               </div>
