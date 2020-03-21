@@ -1,0 +1,399 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>git：上传git代码以及git使用细节 | MPLWade‘s Blog</title>
+<meta name="description" content="温故而知新，总有收获。。" />
+<link rel="shortcut icon" href="https://targetnobug.github.io//favicon.ico?v=1584808144753">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://targetnobug.github.io//styles/main.css">
+
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://targetnobug.github.io/">
+  <img class="avatar" src="https://targetnobug.github.io//images/avatar.png?v=1584808144753" alt="">
+  </a>
+  <h1 class="site-title">
+    MPLWade‘s Blog
+  </h1>
+  <p class="site-description">
+    温故而知新，总有收获。。
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              git：上传git代码以及git使用细节
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-03-22
+              </span>
+              <span>
+                3 min read
+              </span>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h1 id="一-向源码方提交">一、向源码方提交</h1>
+<h4 id="1注册git账号成功后请登录你的邮箱进行激活">1.注册git账号，成功后，请登录你的邮箱，进行激活。</h4>
+<h4 id="2fork你要贡献源码的与项目完成后进入已fork的项目">2.fork你要贡献源码的与项目，完成后，进入已fork的项目。</h4>
+<h4 id="3-配置本地git环境未配置点此">3. 配置本地git环境(未配置<a href="https://blog.csdn.net/waterbinbin/article/details/71191897">点此</a>)</h4>
+<h4 id="4clone你fork的项目">4.clone你fork的项目</h4>
+<p>在任意目录下，使用命令fork自己的项目，即上文已经fork成功的项目地址为：<a href="%5Bhttps://github.com/TargetNoBug/RookieTomatoFM%5D(https://github.com/TargetNoBug/RookieTomatoFM)">https://github.com/GithubUserName/ProjectName</a> （注意：<strong>GithubUserName</strong>这里应该改为<strong>你的用户名</strong>）<br>
+<strong>示例：</strong></p>
+<pre><code>git clone https://github.com/GithubUserName/RookieTomatoFM
+</code></pre>
+<h4 id="5-添加远程仓库地址">5. 添加远程仓库地址</h4>
+<p>当我们完成上述**“4”<strong>的clone动作后，可以使用如下命令，来</strong>查看你fork的远程仓库的地址**。</p>
+<pre><code>git remote -v
+</code></pre>
+<p>默认的clone操作完成后，<strong>远端仓库的地址</strong>别名为：<strong>origin</strong>，为了需要与原项目保持更新，你还需要将原项目地址给添加进来，使用如下命令可以<strong>添加远端仓库地址</strong>,其中<strong>upstream</strong>为<strong>新的远端仓库的别名</strong>。</p>
+<pre><code>git remote add upstream  https://github.com/TargetNoBug/RookieTomatoFM
+</code></pre>
+<h4 id="6-保持与原项目同步-可选">6. 保持与原项目同步 (可选)</h4>
+<p>当<strong>Fork的项目</strong>有更新时，你可以通过以下命令来保持与项目同步：</p>
+<p>进入本地存放<strong>RookieTomatoFM</strong>项目的目录：依次执行下列命令：</p>
+<ul>
+<li>
+<ol>
+<li>从上游仓库<strong>fetch分支</strong>和提取点</li>
+</ol>
+</li>
+</ul>
+<pre><code>git fetch upstream
+</code></pre>
+<ul>
+<li>
+<ol start="2">
+<li>切换到<strong>本地分支</strong>（建议你切换下）</li>
+</ol>
+</li>
+</ul>
+<pre><code>git checkout master
+</code></pre>
+<ul>
+<li>
+<ol start="3">
+<li>把<strong>upstream/master</strong>分支合并到<strong>本地master</strong>上</li>
+</ol>
+</li>
+</ul>
+<pre><code>git merge upstream/master
+</code></pre>
+<ul>
+<li>
+<ol start="4">
+<li>将<strong>upstream/master</strong>分支更新的内容更新到github中fork的项目上(从本地缓存库，提交至git远程库)，就直接</li>
+</ol>
+</li>
+</ul>
+<pre><code>git push origin master
+</code></pre>
+<h4 id="7-提交本地代码至github的fork上">7. 提交本地代码至github的fork上</h4>
+<p>进入本地<strong>RookieTomatoFM</strong>目录,执行以下命令：</p>
+<pre><code>git add .
+git commit -m &quot;有效注释&quot;
+git push
+即可将本地的代码更新到github的fork上了
+</code></pre>
+<h4 id="8-将github的fork更新合并至主干">8. 将github的fork更新合并至主干</h4>
+<p>访问github登录，进入你fork的,如下图所示发起merge请求,等待源项目方审核通过并且合并进源项目。<br>
+<img src="https://upload-images.jianshu.io/upload_images/4395241-bdcf2aaa351eb10e.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="示例项目.jpg"></p>
+<h1 id="二-向自己github创建的repository提交">二、向自己GitHub创建的repository提交</h1>
+<h4 id="1-cd到你的本地项目根目录下再执行git命令">1、cd到你的本地项目根目录下，再执行git命令</h4>
+<pre><code>cd /Users/FilePath/Desktop/RookieTomatoFM
+</code></pre>
+<h4 id="2-git本地仓库初始化">2、git本地仓库初始化</h4>
+<pre><code>git init 
+</code></pre>
+<h4 id="3-将本地项目的所有文件添加到暂存区中">3、将本地项目的所有文件添加到暂存区中</h4>
+<pre><code>git add .
+</code></pre>
+<h4 id="4-将暂存区的文件提交到git本地仓库双引号里面写注释语句-xxxx表示本次提交的说明注释">4、将暂存区的文件提交到git本地仓库，双引号里面写注释语句 (&quot;XXXX&quot;表示本次提交的说明/注释)</h4>
+<pre><code>git commit -m &quot;XXXX&quot;
+</code></pre>
+<h4 id="5-将git本地仓库和github远程仓库关联在github中打开要上传项目的远程仓库得到网址httpsgithubcomtargetnobugrookietomatofm">5、将git本地仓库和Github远程仓库关联，在github中打开要上传项目的远程仓库，得到网址<a href="https://github.com/TargetNoBug/RookieTomatoFM">https://github.com/TargetNoBug/RookieTomatoFM</a></h4>
+<pre><code>git remote add origin https://github.com/TargetNoBug/RookieTomatoFM
+</code></pre>
+<h4 id="6-从远程仓库pull获取远程仓库的文件到本地仓库">6、从远程仓库pull，获取远程仓库的文件到本地仓库</h4>
+<pre><code>git pull origin master
+</code></pre>
+<p><strong>注意：</strong> <strong>第6步</strong>可能会<strong>git pull</strong> 失败 ,提示：<strong>fatal: refusing to merge unrelated histories</strong>，这个问题是因为两个根本不相干的git 库，一个是本地库，一个是远端库，然后本地要去推送到远端，远端觉得这个本地库跟自己不相干，所以告知无法合并，此时使用：</p>
+<pre><code>`git pull origin master --allow-unrelated-histories`
+</code></pre>
+<p>后面加上**--allow-unrelated-histories**，把两段不相干的分支进行强行合并。</p>
+<h4 id="7-将代码由本地仓库上传到github远程仓库此处可能我们会查看当前是否在master使用命令git-check-master">7、将代码由本地仓库上传到<strong>Github远程仓库</strong>（此处，可能我们会查看当前是否在<strong>master</strong>，使用命令：<strong>git check master</strong>）</h4>
+<pre><code>git push -u origin master
+</code></pre>
+<ul>
+<li>
+<h4 id="附加">附加：</h4>
+<p>1、注册trunk<br>
+<code>pod trunk register 'Github账户对应邮箱' 'Github账户对应用户名' --verbose</code><br>
+2、查看注册信息<br>
+<code>pod trunk me</code><br>
+3、验证.podspec文件<br>
+<code>pod lib lint</code><br>
+（有WARN则需用 <code>pod lib lint --allow-warnings</code>）<br>
+4、验证通过无ERROR<br>
+<code>pod trunk push RookieTomatoFM.podspec</code><br>
+（有WARN则需用 <code>pod trunk push RookieTomatoFM.podspec --allow-warnings</code>）<br>
+5、查看某个pods信息<br>
+<code>pod trunk info RookieTomatoFM</code><br>
+6、删除pods的某个版本<br>
+<code>pod trunk delete RookieTomatoFM 0.0.1</code><br>
+7、添加其他pods维护者<br>
+<code>pod trunk add-owner 仓库名 邮箱</code></p>
+</li>
+</ul>
+<p>注：<a href="https://www.jianshu.com/p/d7c28c2dce14">修改name等信息</a></p>
+<p>…………………………………………………………………………………………<br>
+1、pod查看版本号<br>
+<code>pod --version</code></p>
+<p>2、pod升级更新<br>
+<code>sudo gem install cocoapods --pre</code><br>
+**注意：**当你升级遇到以下报错时，使用<br>
+<code>sudo gem install cocoapods -n /usr/local/bin</code><br>
+<strong>报错:</strong><br>
+<code>ERROR: While executing gem ... (Gem::FilePermissionError)</code><br>
+<code>You don't have write permissions for the /usr/bin directory.</code></p>
+<p>3、pod库更新</p>
+<pre><code>`pod repo update`
+</code></pre>
+<h1 id="三-git小细节-更多git细节点击">三、git小细节 （更多git细节<a href="https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E6%89%93%E6%A0%87%E7%AD%BE">点击</a>）</h1>
+<p>Git 可以给仓库历史中的某一个提交打上标签，以示重要。 比较有代表性的是人们会使用这个功能来标记发布结点（ <code>v1.0</code> 、 <code>v2.0</code>等等）。</p>
+<h4 id="1-列出已有的标签">1. 列出已有的标签</h4>
+<p>在 Git 中列出已有的标签非常简单，只需要输入 <code>git tag</code>（可带上可选的 <code>-l</code>选项 <code>--list</code>）：</p>
+<pre><code>$ git tag
+v1.0
+v2.0
+</code></pre>
+<p><code>git tag</code>命令以字母顺序列出标签，但它显示的顺序并不重要。<br>
+你也可以按照特定的模式查找标签。 例如，Git 自身的源代码仓库包含标签的数量超过 500 个。 如果只对 1.8.5 系列感兴趣，可以运行：</p>
+<pre><code>$ git tag -l &quot;v1.8.5*&quot;
+v1.8.5
+v1.8.5-rc0
+v1.8.5-rc1
+v1.8.5-rc2
+v1.8.5-rc3
+v1.8.5.1
+v1.8.5.2
+v1.8.5.3
+v1.8.5.4
+v1.8.5.5
+</code></pre>
+<p><strong>tips</strong>:</p>
+<ul>
+<li>按照通配符列出标签需要 -l 或 --list 选项<br>
+如果你只想要完整的标签列表，那么运行 git tag 就会默认假定你想要一个列表，它会直接给你列出来， 此时的 -l 或 --list 是可选的。</li>
+<li>然而，如果你提供了一个匹配标签名的通配模式，那么 -l 或 --list 就是强制使用的。</li>
+</ul>
+<h4 id="2-如何创建和删除新的标签">2. 如何创建和删除新的标签</h4>
+<ul>
+<li>
+<p>Git 支持两种标签：轻量标签（lightweight）与附注标签（annotated）。</p>
+</li>
+<li>
+<p>轻量标签很像一个不会改变的分支——它只是某个特定提交的引用。</p>
+</li>
+<li>
+<p>附注标签是存储在 Git 数据库中的一个完整对象， 它们是可以被校验的，其中包含打标签者的名字、电子邮件地址、日期时间， 此外还有一个标签信息，并且可以使用 GNU Privacy Guard （GPG）签名并验证。 通常会建议创建附注标签，这样你可以拥有以上所有信息。但是如果你只是想用一个临时的标签， 或者因为某些原因不想要保存这些信息，那么也可以用轻量标签。</p>
+</li>
+</ul>
+<p><strong>附注标签</strong>:<br>
+最简单的方式是当你在运行 tag 命令时指定 -a 选项：</p>
+<pre><code>$ git tag -a v1.4 -m &quot;my version 1.4&quot;
+$ git tag
+v0.1
+v1.3
+v1.4
+</code></pre>
+<p>-m 选项指定了一条将会存储在标签中的信息。 如果没有为附注标签指定一条信息，Git 会启动编辑器要求你输入信息。</p>
+<p>通过使用 git show 命令可以看到标签信息和与之对应的提交信息：</p>
+<pre><code>$ git show v1.4
+tag v1.4
+Tagger: Ben Straub &lt;ben@straub.cc&gt;
+Date:   Sat May 3 20:19:12 2014 -0700
+
+my version 1.4
+
+commit ca82a6dff817ec66f44342007202690a93763949
+Author: Scott Chacon &lt;schacon@gee-mail.com&gt;
+Date:   Mon Mar 17 21:52:11 2008 -0700
+
+    changed the version number
+</code></pre>
+<p>输出显示了打标签者的信息、打标签的日期时间、附注信息，然后显示具体的提交信息。</p>
+<p><strong>轻量标签</strong><br>
+另一种给提交打标签的方式是使用轻量标签。 轻量标签本质上是将提交校验和存储到一个文件中——没有保存任何其他信息。 创建轻量标签，不需要使用 -a、-s 或 -m 选项，只需要提供标签名字：</p>
+<pre><code>$ git tag v1.4-lw
+$ git tag
+v0.1
+v1.3
+v1.4
+v1.4-lw
+v1.5
+</code></pre>
+<h4 id="3-不同类型的标签分别是什么">3. 不同类型的标签分别是什么</h4>
+<h1 id="参考链接">参考链接</h1>
+<blockquote>
+<p><a href="https://www.jianshu.com/p/bed0df7fbfc4">https://www.jianshu.com/p/bed0df7fbfc4</a><br>
+<a href="https://www.jianshu.com/p/52d7c6cb7b35">https://www.jianshu.com/p/52d7c6cb7b35</a></p>
+</blockquote>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#%E4%B8%80-%E5%90%91%E6%BA%90%E7%A0%81%E6%96%B9%E6%8F%90%E4%BA%A4">一、向源码方提交</a><br>
+*<br>
+*<br>
+* <a href="#1%E6%B3%A8%E5%86%8Cgit%E8%B4%A6%E5%8F%B7%E6%88%90%E5%8A%9F%E5%90%8E%E8%AF%B7%E7%99%BB%E5%BD%95%E4%BD%A0%E7%9A%84%E9%82%AE%E7%AE%B1%E8%BF%9B%E8%A1%8C%E6%BF%80%E6%B4%BB">1.注册git账号，成功后，请登录你的邮箱，进行激活。</a><br>
+* <a href="#2fork%E4%BD%A0%E8%A6%81%E8%B4%A1%E7%8C%AE%E6%BA%90%E7%A0%81%E7%9A%84%E4%B8%8E%E9%A1%B9%E7%9B%AE%E5%AE%8C%E6%88%90%E5%90%8E%E8%BF%9B%E5%85%A5%E5%B7%B2fork%E7%9A%84%E9%A1%B9%E7%9B%AE">2.fork你要贡献源码的与项目，完成后，进入已fork的项目。</a><br>
+* <a href="#3-%E9%85%8D%E7%BD%AE%E6%9C%AC%E5%9C%B0git%E7%8E%AF%E5%A2%83%E6%9C%AA%E9%85%8D%E7%BD%AE%E7%82%B9%E6%AD%A4">3. 配置本地git环境(未配置点此)</a><br>
+* <a href="#4clone%E4%BD%A0fork%E7%9A%84%E9%A1%B9%E7%9B%AE">4.clone你fork的项目</a><br>
+* <a href="#5-%E6%B7%BB%E5%8A%A0%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E5%9C%B0%E5%9D%80">5. 添加远程仓库地址</a><br>
+* <a href="#6-%E4%BF%9D%E6%8C%81%E4%B8%8E%E5%8E%9F%E9%A1%B9%E7%9B%AE%E5%90%8C%E6%AD%A5-%E5%8F%AF%E9%80%89">6. 保持与原项目同步 (可选)</a><br>
+* <a href="#7-%E6%8F%90%E4%BA%A4%E6%9C%AC%E5%9C%B0%E4%BB%A3%E7%A0%81%E8%87%B3github%E7%9A%84fork%E4%B8%8A">7. 提交本地代码至github的fork上</a><br>
+* <a href="#8-%E5%B0%86github%E7%9A%84fork%E6%9B%B4%E6%96%B0%E5%90%88%E5%B9%B6%E8%87%B3%E4%B8%BB%E5%B9%B2">8. 将github的fork更新合并至主干</a></li>
+<li><a href="#%E4%BA%8C-%E5%90%91%E8%87%AA%E5%B7%B1github%E5%88%9B%E5%BB%BA%E7%9A%84repository%E6%8F%90%E4%BA%A4">二、向自己GitHub创建的repository提交</a><br>
+*<br>
+*<br>
+* <a href="#1-cd%E5%88%B0%E4%BD%A0%E7%9A%84%E6%9C%AC%E5%9C%B0%E9%A1%B9%E7%9B%AE%E6%A0%B9%E7%9B%AE%E5%BD%95%E4%B8%8B%E5%86%8D%E6%89%A7%E8%A1%8Cgit%E5%91%BD%E4%BB%A4">1、cd到你的本地项目根目录下，再执行git命令</a><br>
+* <a href="#2-git%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93%E5%88%9D%E5%A7%8B%E5%8C%96">2、git本地仓库初始化</a><br>
+* <a href="#3-%E5%B0%86%E6%9C%AC%E5%9C%B0%E9%A1%B9%E7%9B%AE%E7%9A%84%E6%89%80%E6%9C%89%E6%96%87%E4%BB%B6%E6%B7%BB%E5%8A%A0%E5%88%B0%E6%9A%82%E5%AD%98%E5%8C%BA%E4%B8%AD">3、将本地项目的所有文件添加到暂存区中</a><br>
+* <a href="#4-%E5%B0%86%E6%9A%82%E5%AD%98%E5%8C%BA%E7%9A%84%E6%96%87%E4%BB%B6%E6%8F%90%E4%BA%A4%E5%88%B0git%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93%E5%8F%8C%E5%BC%95%E5%8F%B7%E9%87%8C%E9%9D%A2%E5%86%99%E6%B3%A8%E9%87%8A%E8%AF%AD%E5%8F%A5-xxxx%E8%A1%A8%E7%A4%BA%E6%9C%AC%E6%AC%A1%E6%8F%90%E4%BA%A4%E7%9A%84%E8%AF%B4%E6%98%8E%E6%B3%A8%E9%87%8A">4、将暂存区的文件提交到git本地仓库，双引号里面写注释语句 (&quot;XXXX&quot;表示本次提交的说明/注释)</a><br>
+* <a href="#5-%E5%B0%86git%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93%E5%92%8Cgithub%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E5%85%B3%E8%81%94%E5%9C%A8github%E4%B8%AD%E6%89%93%E5%BC%80%E8%A6%81%E4%B8%8A%E4%BC%A0%E9%A1%B9%E7%9B%AE%E7%9A%84%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E5%BE%97%E5%88%B0%E7%BD%91%E5%9D%80httpsgithubcomtargetnobugrookietomatofm">5、将git本地仓库和Github远程仓库关联，在github中打开要上传项目的远程仓库，得到网址https://github.com/TargetNoBug/RookieTomatoFM</a><br>
+* <a href="#6-%E4%BB%8E%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93pull%E8%8E%B7%E5%8F%96%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E7%9A%84%E6%96%87%E4%BB%B6%E5%88%B0%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93">6、从远程仓库pull，获取远程仓库的文件到本地仓库</a><br>
+* <a href="#7-%E5%B0%86%E4%BB%A3%E7%A0%81%E7%94%B1%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93%E4%B8%8A%E4%BC%A0%E5%88%B0github%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E6%AD%A4%E5%A4%84%E5%8F%AF%E8%83%BD%E6%88%91%E4%BB%AC%E4%BC%9A%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E6%98%AF%E5%90%A6%E5%9C%A8master%E4%BD%BF%E7%94%A8%E5%91%BD%E4%BB%A4git-check-master">7、将代码由本地仓库上传到<strong>Github远程仓库</strong>（此处，可能我们会查看当前是否在<strong>master</strong>，使用命令：<strong>git check master</strong>）</a><br>
+* <a href="#%E9%99%84%E5%8A%A0">附加：</a></li>
+<li><a href="#%E4%B8%89-git%E5%B0%8F%E7%BB%86%E8%8A%82-%E6%9B%B4%E5%A4%9Agit%E7%BB%86%E8%8A%82%E7%82%B9%E5%87%BB">三、git小细节 （更多git细节点击）</a><br>
+*<br>
+*<br>
+* <a href="#1-%E5%88%97%E5%87%BA%E5%B7%B2%E6%9C%89%E7%9A%84%E6%A0%87%E7%AD%BE">1. 列出已有的标签</a><br>
+* <a href="#2-%E5%A6%82%E4%BD%95%E5%88%9B%E5%BB%BA%E5%92%8C%E5%88%A0%E9%99%A4%E6%96%B0%E7%9A%84%E6%A0%87%E7%AD%BE">2. 如何创建和删除新的标签</a><br>
+* <a href="#3-%E4%B8%8D%E5%90%8C%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%A0%87%E7%AD%BE%E5%88%86%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88">3. 不同类型的标签分别是什么</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5">参考链接</a></li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://targetnobug.github.io//post/git-use-detail">
+              <h3 class="post-title">
+                git：上传git代码以及git使用细节
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com" target="_blank">gayhub</a> | 
+  <a class="rss" href="https://targetnobug.github.io//atom.xml" target="_blank">RSS</a>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+
+  let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+  // This should probably be throttled.
+  // Especially because it triggers during smooth scrolling.
+  // https://lodash.com/docs/4.17.10#throttle
+  // You could do like...
+  // window.addEventListener("scroll", () => {
+  //    _.throttle(doThatStuff, 100);
+  // });
+  // Only not doing it here to keep this Pen dependency-free.
+
+  window.addEventListener("scroll", event => {
+    let fromTop = window.scrollY;
+
+    mainNavLinks.forEach((link, index) => {
+      let section = document.getElementById(decodeURI(link.hash).substring(1));
+      let nextSection = null
+      if (mainNavLinks[index + 1]) {
+        nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+      }
+      console.log('section.offsetHeight', section.offsetHeight);
+      if (section.offsetTop <= fromTop) {
+        if (nextSection) {
+          if (nextSection.offsetTop > fromTop) {
+            link.classList.add("current");
+          } else {
+            link.classList.remove("current");    
+          }
+        } else {
+          link.classList.add("current");
+        }
+      } else {
+        link.classList.remove("current");
+      }
+    });
+  });
+
+</script>
+
+      </div>
+    </div>
+  </body>
+</html>
